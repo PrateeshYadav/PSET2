@@ -1,0 +1,102 @@
+#include<stdio.h>
+#include<cs50.h>
+#include<string.h>
+#include<ctype.h>
+
+
+int main(int argc, string argv[])
+{
+
+    // c[i] = (p[i] + k) % 26;
+
+    string key = argv[1];
+    bool n = true;
+
+    for(int a = 0; a < strlen(key); a++)
+    {
+        if(isalpha(key[a]))
+        {
+             n = false;
+             printf("INPUT IS ALPHABET\n");
+             return 0;
+        }
+        else
+        {
+            n = true;
+        }
+
+    }
+
+    if(argc == 2 && n) // name of the file, plaintext and key
+    {
+
+        string plainText = get_string("ENTER THE PLAINTEXT : ");
+
+        int k = atoi(argv[1]);// Storing the key in an int.
+        int arrayLength = strlen(plainText);
+
+        printf("PLAINTEXT : %s\n",plainText);
+        printf("KEY       : %i\n",k);
+        printf("LENGTH    : %i\n",arrayLength);
+
+
+        for(int i = 0; i < arrayLength; i++)
+        {
+            if(isalpha(plainText[i]))
+            {
+                 if(isupper(plainText[i]))
+                 {
+                     // conversion is changing ASCII to normal numbers, so "a" will become 0 instead of 97
+                     // We do that so we can use our "formula", otherwise it wont work with ASCII
+
+                     int ascii = (int)plainText[i];
+
+                     int c = ((ascii - 65) + k) % 26;
+
+                     char cipherASCII = (char) c + 65;
+
+                     printf("%c",cipherASCII);
+
+
+                 }
+
+                 if(islower(plainText[i]))
+                 {
+                     // conversion is changing ASCII to normal numbers, so "a" will become 0 instead of 97
+                     // We do that so we can use our "formula", otherwise it wont work with ASCII
+
+                     int ascii = (int)plainText[i];
+
+                     int c = ((ascii - 97) + k) % 26;
+
+                     char cipherASCII = (char) c + 97;
+
+                     printf("%c",cipherASCII);
+
+
+                 }
+
+            }
+
+            else
+            {
+                printf("%c",plainText[i]);
+            }
+
+
+
+
+        }
+
+
+
+    }
+
+    else
+    {
+        printf("INVALID INPUT\n");
+        return 0;
+
+    }
+
+}
